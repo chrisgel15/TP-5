@@ -39,7 +39,7 @@
     | 1 | char | palabra reservada |
     | 1 | * | operador|
     | 1 | , | operador |
-    | 1 | ... |  |
+    | 1 | ... | Declaracion de numero y tipo de argumentos variables |
     | 1 | ) | caracter puntuación |
     | 1 | ; | caracter puntuación |
     | 2 | int | palabra reservada |
@@ -50,7 +50,7 @@
     | 2 | { | caracter puntuación |
     | 3 | int | palabra reservada  |
     | 3 | _ | identificador |
-    | 3 | [] |  |
+    | 3 | [] | Caracter corchete de apertura y cierre |
     | 3 | = | operador |
     | 3 | { | caracter puntuacion |
     | 3 | - | operador |
@@ -89,64 +89,27 @@
         
 - Analisis sintactico
     - Arme el arbol de derivacion.
+    
+    El arbol de derivacion se encuentra subido en el repositorio, en el archivo **Arbol_De_Derivacion.xslx**.
 
-        unidad-de-traduccion:
-            
-            declaracion-externa
-        
-        declaracion-externa:
-            
-            definicion-de-funcion
-        definicion-de-funcion:
-            
-            especificadores-de-declaracion(opt) declarador lista-de-declaraciones(opt)
-            
-        especificadores-de-declaracion:
-        
-            especificador-de-tipo especificadores-de-declaracion(opt)
-        
-        especificador-de-tipo: ```int```
-            
-        declarador:
-        
-            declarador-directo
-        
-        declarador-directo:
-        
-            declarador-directo (lista-tipos-de-parametro)
-        
-        declarador-directo:
-        
-            identificador
-            
-        identificador: ```printf```
-        
-        lista-tipos-de-parametro:
-        
-            lista-de-parametros , ...
-        
-        lista-de-parametros:
-        
-            declaracion-parametro
-            
-        declaracion-parametro:
-        
-            especificadores-de-declaracion declarador-abstracto(opt)
-            
-        especificadores-de-declaracion:
-        
-            calificador-de-tipo especificadores-de-declaracion(opt)
-            
-        calificador-de-tipo: ```const```
-        
-        especificadores-de-declaracion:
-        
-            especificador-de-tipo
-            
-        especificador-de-tipo: ```char```
-        
-        declarador-abstracto:
-        
-            apuntador
-            
-        apuntador: ```*```
+    - Indique si la UT es sintacticamente correcta.
+    
+    La UT es sintacticamente correcta.
+
+- Analisis semantico
+
+    - Indique si la UT es lexicamente correcta. ¿Viola alguna restriccion semantica?
+    
+    La UT es lexicamente correcta y no viola ninguna restriccion semantica.
+    
+    - Indique que hace el programa
+    
+    Primeramente el programa declara una funcion llamada **printf** y luego dentro de la funcion **main**, inicializa un arreglo de enterors e imprime por pantalla el resultado de 2 expresiones en cuyos operandos estan involucrados el arreglo y la la funcion sizeof.
+    
+    - Si es semanticamente correcto, indique la salida. Justifique.
+    
+    La salida imprime los caracteres **00**. 
+    En el arreglo inicializado, se encuentra almacenado el valor entero **-1**.
+    El primer **0** es resultado de resolver la expresion ```sizeof _ - sizeof _[0]```, ya que **sizeof _** da como resultado la cantidad de bytes en el arreglo (4), y **sizeof _[0]** el resultado es la cantidad de bytes para almacenar un entero (4).
+    El segundo **0** es resultado de resolver la expresion ```sizeof(char) + 0[_]```, ya que **sizeof(char)** da como resultado 1, y el valor almacenado en **0[_]** es -1.
+
